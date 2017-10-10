@@ -48,19 +48,27 @@ export default class Kifu extends React.Component {
         if(this.props.callback) {
             this.props.callback((data, filename) => {
                 try {
+                    var player = JKFPlayer.parse(data, filename);
                     this.setState({
-                        player: JKFPlayer.parse(data, filename),
+                        player: player,
                         filename: filename
                     })
+					if (this.props.onReady) {
+						this.props.onReady(player);
+					}
                 }catch(e){
                     this.logError("棋譜形式エラー: この棋譜ファイルを @na2hiro までお寄せいただければ対応します．\n=== 棋譜 ===\n"+data);
                 }
             });
         } else {
             try{
+            	var player = JKFPlayer.parse(this.props.kifu);
                 this.setState({
-                    player: JKFPlayer.parse(this.props.kifu)
+                    player: player
                 });
+				if (this.props.onReady) {
+					this.props.onReady(player);
+				}
             }catch(e){
                 this.logError("棋譜形式エラー: この棋譜ファイルを @na2hiro までお寄せいただければ対応します．\n=== 棋譜 ===\n"+this.props.kifu);
             }

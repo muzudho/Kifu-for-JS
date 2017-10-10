@@ -44,7 +44,11 @@ JavaもFlashも使わない，JavaScriptだけで動く<a href="https://github.c
 <h2>JKFファイル読み込み</h2>
 <script>Kifu.load("../node_modules/json-kifu-format/test/files/jkf/ryuou201409020101.jkf");</script>
 <h2>テキスト読み込み＆JSからのテキスト再読み込み</h2>
-<script>var kifu = Kifu.loadString("▲７六歩  △８四歩  ▲６八銀");</script>
+<script>
+	Kifu.loadString("▲７六歩  △８四歩  ▲６八銀", null, function(player){
+		player.goto(2);
+	});
+</script>
 <textarea id="kifuString">
 ▲７六歩  △８四歩  ▲６八銀
 </textarea>

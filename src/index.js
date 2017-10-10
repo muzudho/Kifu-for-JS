@@ -17,36 +17,36 @@ export default class KifuController{
 		}
 		this.id = id;
 	}
-	loadKifu(kifu){
+	loadKifu(kifu, onReady){
 		$(document).ready(() => {
 			var container = document.getElementById(this.id);
 			render(
-				<Kifu kifu={kifu} ImageDirectoryPath={KifuController.settings.ImageDirectoryPath}/>,
+				<Kifu kifu={kifu} ImageDirectoryPath={KifuController.settings.ImageDirectoryPath} onReady={onReady}/>,
 				container
 			);
 		});
 	}
-	changeCallback(callback){
+	changeCallback(callback, onReady){
 		$(document).ready(() => {
 			var container = document.getElementById(this.id);
 			render(
-				<Kifu callback={callback} ImageDirectoryPath={KifuController.settings.ImageDirectoryPath}/>,
+				<Kifu callback={callback} ImageDirectoryPath={KifuController.settings.ImageDirectoryPath} onReady={onReady}/>,
 				container
 			);
 		});
 	}
-	static loadCallback(callback, id){
+	static loadCallback(callback, id, onReady){
 		var controller = new KifuController(id);
-		controller.changeCallback(callback);
+		controller.changeCallback(callback, onReady);
 		return controller;
 	}
-	static loadString(kifu, id){
+	static loadString(kifu, id, onReady){
 		var controller = new KifuController(id);
-		controller.loadKifu(kifu);
+		controller.loadKifu(kifu, onReady);
 		return controller;
 	}
-	static load(filename, id){
-		KifuController.loadCallback(done => {
+	static load(filename, id, onReady){
+		return KifuController.loadCallback(done => {
 			ajax(filename, (data, err) => {
 				if(err){
 					this.logError(err);
@@ -54,7 +54,7 @@ export default class KifuController{
 				}
 				done(data, filename);
 			});
-		}, id);
+		}, id, onReady);
 	}
 }
 
