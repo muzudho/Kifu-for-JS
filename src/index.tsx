@@ -6,7 +6,8 @@
  */
 import * as React from "react";
 import { render } from "react-dom";
-import Kifu from "./Kifu";
+// import Kifu from "./Kifu";
+import * as Kifu from "./Kifu";
 import KifuStore from "./stores/KifuStore";
 import { onDomReady } from "./utils/util";
 
@@ -31,7 +32,7 @@ function loadCommon(filePath, kifu, id): Promise<KifuStore> {
         onDomReady(() => {
             const container = document.getElementById(id);
             const kifuStore = new KifuStore();
-            render(<Kifu kifuStore={kifuStore} kifu={kifu} filePath={filePath} />, container);
+            // render(<Kifu kifuStore={kifuStore} kifu={kifu} filePath={filePath} />, container);
             resolve(kifuStore);
         });
     });

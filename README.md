@@ -100,8 +100,37 @@ jQuery(2.1以降で動作確認), kifuforjs.js (`test/loadKif.html`にコード�
 
 ## 開発環境
 
+以下のWebサイトから、NodeJSをインストールしてください。  
+
+[nodejs](https://nodejs.org/ja/)  
+
+カレント・ディレクトリーを移動してください。  
+例:  
+
+```shell
+cd C:/Users/むずでょ/Documents/GitHub/Kifu-for-JS
 ```
-$ npm install
+
+もし、初めてダウンロードしたときに、以下のものがあれば、削除してください。
+
+* /node_modules フォルダー
+* /package-lock.json ファイル
+
+Input with any user:  
+
+```shell
+# 元のソースが deprecated のコードをアップデートしていないので、アップデートしようぜ☆（＾～＾）
+npm install -g npm-check-updates
+ncu -u
+
+npm cache clean --force
+
+npm install
+
+# 脆弱性が見つかったなら、以下のコマンドを打鍵してください
+npm audit fix
+# それでもまだ脆弱性が取れなかったら、以下のコマンドを打鍵してください
+npm audit fix --force
 ```
 
 上記コマンドを実行することで開発に必要なパッケージをインストールできます．
@@ -118,16 +147,37 @@ $ npm install
 
 ### コマンド
 
+package.json ファイルから、  
+
+```plain
+"start": "./node_modules/webpack-dev-server/bin/webpack-dev-server.js --open",
 ```
-$ npm run start
+
+の行を
+
+```plain
+"start": "node ./node_modules/webpack-dev-server/bin/webpack-dev-server.js --open",
+```
+
+に置き換えます。
+
+Input with any user:  
+
+```shell
+npm run start
 ```
 
 開発用サーバが立ち上がり，`examples/`以下の`example.html`や`loadJkf.html`にアクセスすることで動作を確認できます．
 
 ```
-$ npm run build
-$ npm run build:watch
-$ npm run build:analyze
+npm install --save-dev @babel/preset-env
+npm install --save-dev @babel/plugin-proposal-decorators 
+# npm add @babel/runtime
+npm install babel-preset-react-app
+
+npm run build
+npm run build:watch
+npm run build:analyze
 ```
 
 ビルドが走ります．`build:watch`の場合，変更されるたびにビルドが走ります．`build:analyze`の場合，バンドルの大きさの可視化ができます．

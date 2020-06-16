@@ -1,7 +1,8 @@
 const path = require('path');
 const webpack = require('webpack');
 const merge = require('webpack-merge');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
+// const CleanWebpackPlugin = require('clean-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const package = require('./package.json');
 
@@ -51,12 +52,13 @@ module.exports = env => {
             extensions: ['.js', '.ts', '.tsx', '.png']
         },
         plugins: [
-            new CleanWebpackPlugin([BUNDLE_DIR]),
+            // Deprecated: new CleanWebpackPlugin([BUNDLE_DIR]),
+            new CleanWebpackPlugin(),
         ]
     };
 
-    if (IS_PROD){
-        common.plugins.push(new webpack.optimize.UglifyJsPlugin());
+    if (IS_PROD) {
+        // common.plugins.push(new webpack.optimize.UglifyJsPlugin());
         common.plugins.push(new webpack.DefinePlugin({
             'process.env.NOVE_ENV': JSON.stringify('production')
         }))

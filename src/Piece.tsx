@@ -18,6 +18,7 @@ export interface IProps {
 }
 
 @observer
+/*
 @DragSource(
     "piece",
     {
@@ -46,6 +47,7 @@ export interface IProps {
         connectDropTarget: connect.dropTarget(),
     }),
 )
+*/
 export default class Piece extends React.Component<IProps, any> {
     public render(): React.ReactNode {
         const div = this.props.connectDropTarget(

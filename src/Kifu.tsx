@@ -1,9 +1,12 @@
-import {observer} from "mobx-react";
+import { observer } from "mobx-react";
 import * as React from "react";
-import {DragDropContext, DropTarget} from "react-dnd";
-import {NativeTypes} from "react-dnd-html5-backend";
-import MultiBackend, {Preview} from "react-dnd-multi-backend";
-import HTML5toTouch from "react-dnd-multi-backend/lib/HTML5toTouch";
+// import { DragDropContext, DropTarget } from "react-dnd";
+// import { NativeTypes } from "react-dnd-html5-backend";
+// import MultiBackend, { Preview } from "react-dnd-multi-backend";
+/*
+// import HTML5toTouch from "react-dnd-multi-backend/lib/HTML5toTouch";
+import HTML5toTouch from 'react-dnd-multi-backend/dist/esm/HTML5toTouch';
+*/
 
 import Board from "./Board";
 import Control from "./Control";
@@ -11,7 +14,7 @@ import Hand from "./Hand";
 import Info from "./Info";
 import LeftControl from "./LeftControl";
 import KifuStore from "./stores/KifuStore";
-import {loadFile} from "./utils/util";
+import { loadFile } from "./utils/util";
 
 import "../css/kifuforjs.css";
 
@@ -28,7 +31,7 @@ export interface IProps {
 }
 
 @observer
-class Kifu extends React.Component<IProps, {}> {
+export class Kifu extends React.Component<IProps, {}> {
     public kifuStore: KifuStore;
 
     constructor(props) {
@@ -37,7 +40,7 @@ class Kifu extends React.Component<IProps, {}> {
     }
 
     public componentDidMount() {
-        const {filePath} = this.props;
+        const { filePath } = this.props;
         let loadPromise;
         if (filePath) {
             loadPromise = this.kifuStore.loadFile(filePath);
@@ -67,13 +70,13 @@ class Kifu extends React.Component<IProps, {}> {
                 <img src={item.imgSrc} className="dragPreview" style={style} />
             ) : null;
 
+        // Deleted: <Preview generator={previewGenerator} />
         return this.props.connectDropTarget(
             <div>
                 <table className="kifuforjs" style={{ backgroundColor: this.props.isOver ? "silver" : "" }}>
                     <tbody>
                         <tr>
                             <td>
-                                <Preview generator={previewGenerator} />
                                 <DevTools />
                                 <div className="inlineblock players">
                                     <Hand kifuStore={this.kifuStore} defaultColor={1} />
@@ -102,6 +105,7 @@ class Kifu extends React.Component<IProps, {}> {
     }
 }
 
+/*
 const DropTargetKifu = DropTarget<IProps>(
     NativeTypes.FILE,
     {
@@ -121,6 +125,7 @@ const DropTargetKifu = DropTarget<IProps>(
         };
     },
 )(Kifu);
-const DragDropKifu = DragDropContext<IProps>(MultiBackend(HTML5toTouch))(DropTargetKifu);
 
+const DragDropKifu = DragDropContext<IProps>(MultiBackend(HTML5toTouch))(DropTargetKifu);
 export default DragDropKifu;
+*/
